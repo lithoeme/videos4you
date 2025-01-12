@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Downloader</title>
+</head>
+<body>
+<h1>YouTube Downloader</h1>
+<form id="download-form">
+    <input type="text" id="url" placeholder="Enter YouTube URL" required>
+    <select id="type">
+        <option value="video">Video</option>
+        <option value="playlist">Playlist</option>
+        <option value="channel">Channel</option>
+    </select>
+    <select id="quality">
+        <option value="best">Best Quality</option>
+        <option value="audio">Audio Only</option>
+    </select>
+    <button type="submit">Download</button>
+</form>
+<div id="response"></div>
+
+<script>
+    document.getElementById('download-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const url = document.getElementById('url').value;
+        const type = document.getElementById('type').value;
+        const quality = document.getElementById('quality').value;
+
+        const response = await fetch('https://your-render-backend-url/download', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url, type, quality })
+        });
+
+        const result = await response.json();
+        document.getElementById('response').innerText = result.status === 'success' ? `Downloaded: ${result.title}` : 'Error downloading';
+    });
+</script>
+</body>
+</html>
