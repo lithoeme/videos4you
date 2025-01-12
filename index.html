@@ -29,7 +29,7 @@
         const type = document.getElementById('type').value;
         const quality = document.getElementById('quality').value;
 
-        const response = await fetch('https://your-render-backend-url/download', {
+        const response = await fetch('https://videos4you.onrender.com/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ url, type, quality })
